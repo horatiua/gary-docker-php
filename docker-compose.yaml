@@ -1,0 +1,36 @@
+services:
+  # nginx
+  web:
+    build:
+      dockerfile: ./nginx/Dockerfile
+    ports:
+      - '80:80'
+
+  # php
+  app:
+    build:
+      dockerfile: ./php/Dockerfile
+      target: app
+
+  # mysql
+  db:
+    image: mysql:8.0
+    volumes:
+      - mysqldata:/var/lib/mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+      MYSQL_DATABASE: docker-php
+  # redis
+
+volumes:
+  mysqldata:
+
+
+
+  # docker compose up
+  # docker compose up -d
+  # docker compose ps
+  # docker exec -it {container} sh
